@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export function AssaysList({ data }) {
   const [expanded, setExpanded] = useState({});
@@ -33,6 +33,7 @@ export function AssaysList({ data }) {
             </div>
             <div className="assay-item__details">
               {data.users[assay.operator].full_name}
+              <div>Type: {assay.assay_type}</div>
             </div>
             {expanded[assay.id] && (
               <div className="assay-item__peptides">
