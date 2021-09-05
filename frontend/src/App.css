@@ -1,0 +1,15 @@
+.App {
+  height: 100%;
+}
+
+.navbar {
+  height: 30px;
+  background-color: #efefef;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #565656;
+  padding: 0 10px;
+  font-size: 12px;
+}

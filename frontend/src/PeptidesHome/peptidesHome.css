@@ -1,0 +1,113 @@
+.peptides-home {
+  width: 100%;
+  height: calc(100% - 30px);
+  overflow: auto;
+  background-color: #fafafa;
+  display: block;
+  padding: 10px;
+}
+
+.peptides-home__content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.assays-list {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #cdcdcd;
+}
+
+.assay-item {
+  padding: 5px;
+}
+.assay-item:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+.assay-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.assay-item__controls {
+  font-size: 12px;
+}
+
+.assay-item__controls > span {
+  cursor: pointer;
+}
+
+.assay-item__details {
+  font-size: 12px;
+  color: #888;
+}
+
+.assay-item__peptides {
+  padding: 10px;
+}
+
+.assay-item__peptide {
+  font-size: 10px;
+  padding: 3px;
+  color: #888;
+  display: flex;
+}
+
+.assay-item__peptide__name {
+  color: #555;
+  margin-right: 10px;
+}
+
+.assay-form {
+  padding: 0 10px;
+  margin-left: 20px;
+}
+
+.assay-form__values {
+  margin-top: 20px;
+}
+
+.assay-form__field {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.assay-form__label {
+  width: 100px;
+  color: #565656;
+}
+.assay-form__label,
+.assay-form__control {
+  padding: 5px;
+}
+
+.assay-form__control {
+  width: 350px;
+}
+
+.assay-form__control input,
+.assay-form__control select,
+.assay-form__control textarea {
+  width: 100%;
+}
+
+.assay-form__control textarea {
+  height: 200px;
+}
+
+.assay-form__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.assay-form__save {
+  background-color: #36a53c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+}
