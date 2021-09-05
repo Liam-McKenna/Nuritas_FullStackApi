@@ -12,6 +12,11 @@ class Peptide(models.Model):
 
 class Assay(models.Model):
     name = models.CharField(max_length=20)
+    assay_type = models.CharField(choices=(
+        ('wet', "wet"),
+        ('dry', "dry")),
+        default='wet', max_length=10
+    )
     operator = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -26,5 +31,3 @@ class Assay(models.Model):
 
     def __str__(self):
         return self.name
-
-
