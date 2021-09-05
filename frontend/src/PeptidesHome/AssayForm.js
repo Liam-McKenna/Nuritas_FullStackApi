@@ -4,6 +4,7 @@ import { postRequest } from '../core/requests';
 export function AssayForm({ data, refreshData }) {
   const [name, setName] = useState('');
   const [operator, setOperator] = useState(null);
+  const [assayType, setAssayType] = useState('');
   const [peptides, setPeptides] = useState('');
   const [error, setError] = useState('');
 
@@ -13,12 +14,14 @@ export function AssayForm({ data, refreshData }) {
     const payload = {
       name,
       operator,
+      assay_type: assayType,
       peptides: peptidesList,
     };
     postRequest('peptides/api/assays/', payload)
       .then(() => {
         setName('');
         setOperator(null);
+        setAssayType(null);
         setPeptides('');
         refreshData();
       })
@@ -59,7 +62,16 @@ export function AssayForm({ data, refreshData }) {
               {userOptions}
             </select>
           </Field>
-          {/* Excercise 5 ADD-CODE-HERE */}
+          <Field label="Assay Type">
+            <select
+              value={assayType || ''}
+              onChange={(e) => setAssayType(e.target.value)}
+            >
+              <option />
+              <option value="wet">wet</option>
+              <option value="dry">dry</option>
+            </select>
+          </Field>
           <Field label="Peptides">
             <textarea
               value={peptides}
