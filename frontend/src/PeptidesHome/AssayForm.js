@@ -1,39 +1,41 @@
-import { useState } from "react";
-import { postRequest } from "../core/requests";
+import { useState } from 'react';
+import { postRequest } from '../core/requests';
 
 export function AssayForm({ data, refreshData }) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [operator, setOperator] = useState(null);
-  const [peptides, setPeptides] = useState("");
-  const [error, setError] = useState("");
+  const [peptides, setPeptides] = useState('');
+  const [error, setError] = useState('');
 
   const save = (e) => {
     e.preventDefault();
-    const peptidesList = peptides.split("\n");
+    const peptidesList = peptides.split('\n');
     const payload = {
       name,
       operator,
       peptides: peptidesList,
     };
-    postRequest("peptides/api/assays/", payload)
+    postRequest('peptides/api/assays/', payload)
       .then(() => {
-        setName("");
+        setName('');
         setOperator(null);
-        setPeptides("");
+        setPeptides('');
         refreshData();
       })
       .catch(() => {
-        setError("Something went wrong!");
+        setError('Something went wrong!');
       });
   };
 
   /* Excercise 1 ADD-CODE-HERE */
   const userOptions = Object.values(data.users).map((u) => {
-    return (
+    //checking if any value in the users object group_list equals/contains string 'Scientists' will returns true,
+    //else statement is false and return null. I used a ternary operator.
+    return Object.values(u.groups_list).includes('Scientists') ? (
       <option value={u.id} key={u.id}>
         {u.full_name}
       </option>
-    );
+    ) : null;
   });
 
   return (
@@ -45,12 +47,12 @@ export function AssayForm({ data, refreshData }) {
           <Field label="Name">
             <input
               value={name}
-              onChange={(e) => setName(e.target.value || "")}
+              onChange={(e) => setName(e.target.value || '')}
             />
           </Field>
           <Field label="Operator">
             <select
-              value={operator || ""}
+              value={operator || ''}
               onChange={(e) => setOperator(e.target.value)}
             >
               <option />
@@ -61,9 +63,9 @@ export function AssayForm({ data, refreshData }) {
           <Field label="Peptides">
             <textarea
               value={peptides}
-              onChange={(e) => setPeptides(e.target.value || "")}
+              onChange={(e) => setPeptides(e.target.value || '')}
             />
-            <span style={{ fontSize: 10, color: "#888" }}>(one per line)</span>
+            <span style={{ fontSize: 10, color: '#888' }}>(one per line)</span>
           </Field>
         </div>
         <div className="assay-form__actions">
