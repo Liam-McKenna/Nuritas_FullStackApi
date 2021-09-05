@@ -51,8 +51,39 @@ class AssayViewSet(viewsets.ModelViewSet):
         assay = serializer.save()
 
         # Excercise 2 ADD-CODE-HERE
+
+     # get all current peps
+        existingPepsData = Peptide.objects.all()
+        newAssayPeps = []
+        # for each new sequence in post
         for sequence in parsed_data['peptides']:
-            pass
+            # for each exiting pep, check if it exists
+            for existingPep in existingPepsData:
+                if existingPep.sequence == sequence:
+                    existingPepId = existingPep.id
+                    break  # take existing pep's id and add it to Assay list.
+                else:
+                    existingPepId = False
+            if(existingPepId):
+                newAssayPeps.append(existingPepId)
+            else:
+                # If existing is false: create a new pep item with the new sequence, and add the new id to the Assay list.
+                latestPepData = (existingPepsData.latest('id'))
+                latestPepNumber = (int(latestPepData.name.split("_", 1)[1]))
+                newPepNumber = ("pep_"+str(latestPepNumber+1))
+                newPepData = {'sequence': sequence, 'name': newPepNumber}
+                # create new pep item, then take the new id and add it to newAssayPeps
+                #################################################
+                pepSerializer = PeptideSerializer(data=newPepData)
+                pepSerializer.is_valid(raise_exception=True)
+                pep = pepSerializer.save()
+                headers = self.get_success_headers(pepSerializer.data)
+                NewPep = Response(
+                    pepSerializer.data, status=status.HTTP_201_CREATED, headers=headers)
+                newAssayPeps.append(NewPep.data['id'])
+                ##################################################
+        # add Assay's to data
+        serializer.save(peptides=newAssayPeps)
 
         headers = self.get_success_headers(serializer.data)
         return Response(
